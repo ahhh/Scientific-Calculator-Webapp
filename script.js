@@ -1,5 +1,5 @@
 const RESULT_SIGNIFICANT_FIGURES = 12;
-const MAX_FACTORIAL_INPUT = 170; // Largest n where n! stays finite in JS Number (IEEE-754 double).
+const MAX_FACTORIAL_INPUT = 170; // Largest n where n! does not overflow to Infinity in IEEE-754 double precision.
 const MAX_HISTORY_LENGTH = 15;
 const HISTORY_PREVIEW_COUNT = 5;
 
@@ -255,8 +255,7 @@ function evaluateExpression(expression, options = {}) {
         expectToken("paren", "(");
         const argument = parseExpressionTree();
         expectToken("paren", ")");
-        const evaluated = value(argument);
-        return evaluated;
+        return value(argument);
       }
 
       if (peekToken()?.type === "paren" && peekToken().value === "(") {
