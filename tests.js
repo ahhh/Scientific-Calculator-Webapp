@@ -6,6 +6,9 @@ const {
   getHistory,
   resetCalculatorState
 } = require("./script.js");
+const EXPECTED_ASIN_1_RAD = String(
+  Number.parseFloat((Math.PI / 2).toPrecision(12))
+);
 
 function runTest(name, fn) {
   try {
@@ -28,12 +31,12 @@ runTest("evaluates right-associative power", () => {
 });
 
 runTest("evaluates scientific constants", () => {
-  assert.equal(evaluateExpression("PI+E").startsWith("5.859"), true);
+  assert.ok(evaluateExpression("PI+E").startsWith("5.859"));
 });
 
 runTest("supports inverse trig in radian mode", () => {
   assert.equal(getAngleMode(), "RAD");
-  assert.equal(evaluateExpression("asin(1)"), String(Number.parseFloat((Math.PI / 2).toPrecision(12))));
+  assert.equal(evaluateExpression("asin(1)"), EXPECTED_ASIN_1_RAD);
 });
 
 runTest("supports trig in degree mode", () => {

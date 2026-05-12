@@ -33,9 +33,8 @@ const allowedIdentifiers = new Set([
 ]);
 
 function setStatus(message = "") {
-  if (statusEl) {
-    statusEl.textContent = message;
-  }
+  if (!statusEl) return;
+  statusEl.textContent = message;
 }
 
 function renderMode() {
@@ -196,6 +195,12 @@ function tokenize(expression) {
   return tokens;
 }
 
+/**
+ * Evaluate a calculator expression.
+ * @param {string} expression
+ * @param {{persistState?: boolean}} [options] When true, stores result in ANS and history.
+ * @returns {string}
+ */
 function evaluateExpression(expression, options = {}) {
   const { persistState = true } = options;
   if (!expression.trim()) {
