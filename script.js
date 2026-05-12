@@ -1,5 +1,5 @@
 const RESULT_SIGNIFICANT_FIGURES = 12;
-const MAX_FACTORIAL_INPUT = 170; // 170! is finite, while 171! overflows to Infinity.
+const MAX_FACTORIAL_INPUT = 170; // Largest n where n! stays finite in JS Number (IEEE-754 double).
 const MAX_HISTORY_LENGTH = 15;
 const HISTORY_PREVIEW_COUNT = 5;
 
@@ -256,9 +256,6 @@ function evaluateExpression(expression, options = {}) {
         const argument = parseExpressionTree();
         expectToken("paren", ")");
         const evaluated = value(argument);
-        if (!Number.isFinite(evaluated)) {
-          throw new Error("Result is not a finite number.");
-        }
         return evaluated;
       }
 
@@ -463,7 +460,7 @@ if (domAvailable) {
       return;
     }
 
-    if (event.key.toLowerCase() === "m") {
+    if (event.ctrlKey && event.key.toLowerCase() === "m") {
       toggleAngleMode();
       event.preventDefault();
       return;

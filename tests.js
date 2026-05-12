@@ -53,6 +53,11 @@ runTest("rejects invalid factorial", () => {
   assert.throws(() => evaluateExpression("fact(-1)"), /Factorial input must be a non-negative integer/);
 });
 
+runTest("enforces factorial upper boundary", () => {
+  assert.equal(evaluateExpression("fact(170)"), "7.25741561531e+306");
+  assert.throws(() => evaluateExpression("fact(171)"), /Factorial input is too large/);
+});
+
 runTest("tracks answer constant across evaluations", () => {
   assert.equal(evaluateExpression("2+3", { persistState: true }), "5");
   assert.equal(evaluateExpression("ANS*4", { persistState: true }), "20");
