@@ -1,4 +1,7 @@
 const RESULT_SIGNIFICANT_FIGURES = 12;
+const MAX_FACTORIAL_INPUT = 170; // Above this, factorial exceeds finite Number range.
+const MAX_HISTORY_LENGTH = 15;
+const HISTORY_PREVIEW_COUNT = 5;
 
 const domAvailable = typeof document !== "undefined";
 const display = domAvailable ? document.getElementById("display") : null;
@@ -92,7 +95,7 @@ function factorial(value) {
     throw new Error("Factorial input must be a non-negative integer.");
   }
 
-  if (value > 170) {
+  if (value > MAX_FACTORIAL_INPUT) {
     throw new Error("Factorial input is too large.");
   }
 
@@ -350,7 +353,7 @@ function evaluateExpression(expression, options = {}) {
 
 function addHistoryEntry(expression, result) {
   history.unshift({ expression, result });
-  if (history.length > 15) {
+  if (history.length > MAX_HISTORY_LENGTH) {
     history.pop();
   }
 }
@@ -366,7 +369,7 @@ function showHistory() {
   }
 
   const latest = history
-    .slice(0, 5)
+    .slice(0, HISTORY_PREVIEW_COUNT)
     .map((entry, index) => `${index + 1}) ${entry.expression} = ${entry.result}`)
     .join(" | ");
 
