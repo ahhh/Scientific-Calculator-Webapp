@@ -16,6 +16,8 @@
   --op-hover: #2e5774;
   --control: #3e2d2d;
   --control-hover: #513c3c;
+  --const: #2f3744;
+  --const-hover: #404b5b;
 }
 
 * {
@@ -168,6 +170,14 @@ button:active {
 
 .btn-control:hover {
   background: var(--control-hover);
+}
+
+.btn-const {
+  background: var(--const);
+}
+
+.btn-const:hover {
+  background: var(--const-hover);
 }
 
 .equals {
